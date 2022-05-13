@@ -1,0 +1,22 @@
+.current-weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 0 8px #333;
+  padding: 20px 50px;
+  border-radius: 10px;
+  h2 {
+    font-size: 30px;
+  }
+  div {
+    display: flex;
+    align-items: center;
+    h3 {
+      font-size: 40px;
+    }
+  }
+  .date-time {
+    text-transform: uppercase;
+  }
+}
