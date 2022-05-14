@@ -1,0 +1,27 @@
+nav {
+  display: flex;
+  padding: 20px 0;
+  ul {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+    li {
+      flex: 1;
+      a {
+        background-color: cadetblue;
+        text-align: center;
+        border-radius: 5px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+        padding: 10px 15px;
+        display: block;
+        transition: background-color 0.4s ease;
+        &:hover {
+          background-color: tomato;
+        }
+      }
+    }
+  }
+}

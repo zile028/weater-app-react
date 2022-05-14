@@ -1,0 +1,22 @@
+.dayli {
+  li {
+    font-size: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border-radius: 5px;
+    &:nth-child(odd) {
+      background-color: #ddd;
+    }
+    img {
+      height: 100%;
+      max-height: 2em;
+    }
+    span {
+      &:first-child {
+        flex: 1;
+      }
+    }
+  }
+}

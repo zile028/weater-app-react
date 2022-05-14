@@ -1,31 +1,56 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import Dayli from "./Components/Dayli/Dayli";
+import Today from "./Components/Today/Today";
+import Layout from "./Components/Layout/Layout";
+import Input from "./Components/Inputs/Input";
 import "./App.scss";
-import CurrentWeather from "./Components/CurrentWeather/CurrentWeather";
+import Hourly from "./Components/Hourly/Hourly";
+export const apiKey = "92fe8ed71d6c96ecf7fa577cadb248f5";
 
 function App() {
+  const [city, setCity] = useState("");
   const [weather, setWeather] = useState({});
-  const [city, setCity] = useState("London");
-
-  const apiKey = "92fe8ed71d6c96ecf7fa577cadb248f5";
+  const [fullWeather, setFullWeather] = useState({});
 
   useEffect(() => {
-    console.log("Render data");
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
-      // `https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&appid=92fe8ed71d6c96ecf7fa577cadb248f5&units=metric`
-    )
-      .then((res) => res.json())
-      .then((res) => setWeather(res));
+    city &&
+      fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+      )
+        .then((res) => res.json())
+        .then((res) => setWeather(res));
   }, [city]);
 
+  useEffect(() => {
+    weather.name &&
+      fetch(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${weather.coord.lat}&lon=${weather.coord.lon}&appid=${apiKey}&units=metric`
+      )
+        .then((res) => res.json())
+        .then((res) => setFullWeather(res));
+  }, [weather]);
+
   return (
-    <div className="container">
-      <div className="input-holder">
-        <input type="text" onInput={(e) => setCity(e.target.value)} />
-        <button>Find</button>
-      </div>
-      {weather.name && <CurrentWeather data={weather} />}
-    </div>
+    <BrowserRouter>
+      <Input setCity={setCity} />
+      <Routes>
+        <Route path="/" element={city && <Layout />}>
+          <Route
+            index
+            element={weather.name && <Today data={weather} />}
+          ></Route>
+          <Route
+            path="/dayli"
+            element={fullWeather.daily && <Dayli data={fullWeather.daily} />}
+          />
+          <Route
+            path="/hourly"
+            element={fullWeather.hourly && <Hourly data={fullWeather.hourly} />}
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

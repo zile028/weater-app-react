@@ -1,7 +1,6 @@
 import React from "react";
-import "./style.scss";
 import Moment from "react-moment";
-import "moment/locale/sr";
+import "./style.scss";
 
 function CurrentWeather({ data }) {
   const weather = {
@@ -14,7 +13,7 @@ function CurrentWeather({ data }) {
 
   return (
     <div className="current-weather">
-      <Moment className="date-time" unix locale="sr" format="DD. MMM. Y">
+      <Moment className="date-time" unix format="DD. MMM. Y">
         {weather.dateTime}
       </Moment>
       <h2>
